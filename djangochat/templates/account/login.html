@@ -1,0 +1,68 @@
+{% extends "account/base.html" %}
+
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="row">
+   <div class="col-12 col-md-6 offset-md-3">
+      <h3>{% trans "Registrarse" %}</h3>
+
+      {% get_providers as socialaccount_providers %}
+
+      {% if socialaccount_providers %}
+      <p>{% blocktrans with site.name as site_name %}Inicie sesión con uno
+         de sus cuentas de terceros existentes. O, <a href="{{ signup_url }}">inscribirse</a>
+         para {{ site_name }} cuenta e inicie sesión a continuación:{% endblocktrans %}</p>
+
+      <div class="socialaccount_ballot">
+
+      <ul class="socialaccount_providers">
+         {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </ul>
+
+      <div class="login-or">{% trans 'or' %}</div>
+
+      </div>
+
+      {% include "socialaccount/snippets/login_extra.html" %}
+
+      {% else %}
+      <p>{% blocktrans %}Si aún no ha creado una cuenta, por favor
+      <a href="{{ signup_url }}">Registrese</a> primero.{% endblocktrans %}</p>
+      {% endif %}
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <div class="sidenav">
+      <div class="login-main-text">
+         <br> <h1>   <div class="p-3 mb-2 bg-primary text-white">Login</div>  </h1> 
+         <p>Inicia sesión o regístrate desde aquí para acceder.</p>
+      </div>
+      </div>
+      <div class="main">
+      <div class="col-md-6 col-sm-12">
+         <div class="login-form">
+            <form>
+               <div class="form-group">
+                  <label>User Name</label>
+                  <input type="text" class="form-control" placeholder="User Name">
+               </div>
+               <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" placeholder="Password">
+               </div>
+               <button type="submit" class="btn btn-black">Login</button>
+               <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
+         </div>
+      </div>
+      </div>
+      </form>
+   </div>
+</div>
+
+{% endblock %}

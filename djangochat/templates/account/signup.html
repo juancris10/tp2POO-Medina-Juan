@@ -1,0 +1,32 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<link type="text/CSS" href='{ % static  " CSS/plantilla.css"%}' rel='stylesheet'/>
+<div class="row">
+  <div class="col-12 col-md-6 offset-md-3">
+    <h1>   <div class="p-3 mb-2 bg-primary text-white">Registrarse</div>  </h1>
+
+    <p>{% blocktrans %}¿Ya tienes una cuenta? Entonces por favor <a href="{{ login_url }}">Inicie sesión</a>.{% endblocktrans %}</p>
+
+      <div class="col-md-4">
+
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {{ form | crispy}}
+
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <button class= "btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      </form>
+  </div>
+</div>
+{% endblock %}
